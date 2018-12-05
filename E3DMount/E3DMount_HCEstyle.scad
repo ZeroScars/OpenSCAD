@@ -272,7 +272,7 @@ module E3DmountBottom(){
       translate([0,0,-tol/2]){
         for (w=[-1,1]) {
           translate([w*beltholewidth/2,0,0]){
-            cylinder(d=m3,h=(2*t_plate)+2*tol, center = false);
+            cylinder(d=m3,h=(1.5*t_plate)+2*tol, center = false);
             cylinder(d=4.8,h=5.2+tol, center = false);
           }
         }
@@ -299,6 +299,16 @@ module E3DmountBottom(){
           E3DHead();
         }
       }
+      // --------------------------------------------------------------------------------------------
+      // Cut out the E3D hole for the sensor
+      // --------------------------------------------------------------------------------------------
+//    translate([0,0,t_plate/2+explode*1]){
+      rotate([90,0,0]){
+        translate([24,E3Dholder_h,-(E3Dholder_t/2)]){
+          E3DSensor();
+        }
+      }
+//    }
     }
   }
 }
@@ -320,6 +330,24 @@ module E3DHead(){
   // Bottom cut out
   translate([0,0,E3Dholder_t_top+6-0.3]){
     cylinder(d=E3Dholder_d2,h=E3Dholder_t_btm+tol, center = false);
+  }
+}
+// ============================================================================================
+
+// ============================================================================================
+// Module 
+// ============================================================================================
+module E3DSensor(diam = 11){
+  // Center bore
+  translate([0,0,-tol/2]){
+    cylinder(d=diam,h=E3Dholder_t+tol, center = false);
+  }
+  //cutout = 10;
+  rotate([90,0,0]){
+    translate([0,E3Dholder_t/2,0]){
+      cylinder(d=m3,h=diam/2+5.2+2+tol, center = false);
+      cylinder(d=4.8,h=diam/2+5.5+tol, center = false);
+    }
   }
 }
 // ============================================================================================
@@ -357,6 +385,21 @@ module E3DmountTop(){
           E3DHead();
         }
       }
+      // --------------------------------------------------------------------------------------------
+      // Cut out the E3D hole for the sensor
+      // --------------------------------------------------------------------------------------------
+//    translate([0,0,t_plate/2+explode*1]){
+      rotate([90,0,0]){
+        translate([24,0,-(E3Dholder_t/2)]){
+          E3DSensor();
+          rotate([90,0,0]){
+            translate([0,E3Dholder_t/2,-E3DholderTop_t-tol/2]){
+              cylinder(d=m3+0.5,h=E3DholderTop_t+tol, center = false);
+            }
+          }
+        }
+      }
+//    }
     }
   }
 }
