@@ -46,12 +46,12 @@ coolerTunnelHeight = 15;// Height of the cooler tunnel
 // Mount top
 E3DholderTop_t = 12.5;  // Thickness of the E3D holder cover plate
 
-E3DBasePlate();
-E3DmountBottom();
+//E3DBasePlate();
+//E3DmountBottom();
 E3DmountTop();
-E3DFanDuct();
-E3D3DTouchMount();
-E3D3DTouch();
+//E3DFanDuct();
+//E3D3DTouchMount();
+//E3D3DTouch();
 
 // ============================================================================================
 // Module that draws the base plate which holds the bearing housings and the E3D extruder
@@ -394,7 +394,9 @@ module E3DmountTop(){
           E3DSensor();
           rotate([90,0,0]){
             translate([0,E3Dholder_t/2,-E3DholderTop_t-tol/2]){
-              cylinder(d=m3+0.5,h=E3DholderTop_t+tol, center = false);
+              cylinder(d=m3+1,h=E3DholderTop_t+tol, center = false);
+              translate([0,0,3])
+                cylinder(d=6.4,h=E3DholderTop_t+tol, center = false);
             }
           }
         }
@@ -421,55 +423,60 @@ module E3DFanDuct(){
 // Module 
 // ============================================================================================
 module E3D3DTouchMount(){
-  3DTholeWidth = 18;
-  3DTthickness = 4;
-  translate([0,-E3D_plate_heigth/2+5.75,t_plate/2+5/2]){
-    difference(){
-      hull(){
-        for (h = [0,1]){
-          translate([(E3D_plate_width/2-5),h*21,0]){
-            cylinder(r=10/2, h=5, $fn=180, center=true);
-          }
-        }
-      }
-      hull(){
-        for (h = [0,1]){
-          translate([(E3D_plate_width/2-5),h*21,0]){
-            cylinder(r=3.3/2, h=5+tol, $fn=180, center=true);
-          }
-        }
-      }
-    }
-  }
-  rotate([90,0,0]) translate([35,E3Dholder_h+t_plate/2,10]){ rotate([0,0,-90])
-    difference(){
-      union(){
-        for (w = [-1, 1]){  
-          hull(){
-            translate([w*3DTholeWidth/2,0,0]){
-              cylinder(r=4, h=3DTthickness, $fn=180, center=true);
-            }
-            translate([w*11.5/4,0,0]){
-              cylinder(r=11.5/2, h=3DTthickness, $fn=180, center=true);
-            }
-          }
-        }
-        hull(){
-          translate([-11.5/4,0,0]){
-            cylinder(r=11.5/2, h=3DTthickness, $fn=180, center=true);
-          }
-          translate([11.5/4,0,0]){
-            cylinder(r=11.5/2, h=3DTthickness, $fn=180, center=true);
-          }
-        }
-      }
-      // cut holes
-      for (w = [-1, 1]){  
-        translate([w*3DTholeWidth/2,0,0]){
-          cylinder(d=3.3, h=3DTthickness+tol, $fn=180, center=true);
-        }
-      }
-      cylinder(d=4.5, h=3DTthickness+tol, $fn=180, center=true);
+//  3DTholeWidth = 18;
+//  3DTthickness = 4;
+//  translate([0,-E3D_plate_heigth/2+5.75,t_plate/2+5/2]){
+//    difference(){
+//      hull(){
+//        for (h = [0,1]){
+//          translate([(E3D_plate_width/2-5),h*21,0]){
+//            cylinder(r=10/2, h=5, $fn=180, center=true);
+//          }
+//        }
+//      }
+//      hull(){
+//        for (h = [0,1]){
+//          translate([(E3D_plate_width/2-5),h*21,0]){
+//            cylinder(r=3.3/2, h=5+tol, $fn=180, center=true);
+//          }
+//        }
+//      }
+//    }
+//  }
+//  rotate([90,0,0]) translate([35,E3Dholder_h+t_plate/2,10]){ rotate([0,0,-90])
+//    difference(){
+//      union(){
+//        for (w = [-1, 1]){  
+//          hull(){
+//            translate([w*3DTholeWidth/2,0,0]){
+//              cylinder(r=4, h=3DTthickness, $fn=180, center=true);
+//            }
+//            translate([w*11.5/4,0,0]){
+//              cylinder(r=11.5/2, h=3DTthickness, $fn=180, center=true);
+//            }
+//          }
+//        }
+//        hull(){
+//          translate([-11.5/4,0,0]){
+//            cylinder(r=11.5/2, h=3DTthickness, $fn=180, center=true);
+//          }
+//          translate([11.5/4,0,0]){
+//            cylinder(r=11.5/2, h=3DTthickness, $fn=180, center=true);
+//          }
+//        }
+//      }
+//      // cut holes
+//      for (w = [-1, 1]){  
+//        translate([w*3DTholeWidth/2,0,0]){
+//          cylinder(d=3.3, h=3DTthickness+tol, $fn=180, center=true);
+//        }
+//      }
+//      cylinder(d=4.5, h=3DTthickness+tol, $fn=180, center=true);
+//    }
+//  }
+  rotate([0,90,90]){
+    translate([-38.5,-36,-12]){
+      import("E3DMount_HCEstyle_TouchHolder.stl", convexity=3);
     }
   }
 }
@@ -481,7 +488,7 @@ module E3D3DTouchMount(){
 module E3D3DTouch(){
   3DTthickness = 4;
   rotate([90,0,0]){
-    translate([35,E3Dholder_h+t_plate/2,12]){
+    translate([36,E3Dholder_h+t_plate/2,12]){
       rotate([0,0,-90]) import("BLTouch_contracted.stl", convexity=3);
     }
   }
