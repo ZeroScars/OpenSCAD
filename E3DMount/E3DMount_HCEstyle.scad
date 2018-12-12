@@ -46,12 +46,12 @@ coolerTunnelHeight = 15;// Height of the cooler tunnel
 // Mount top
 E3DholderTop_t = 12.5;  // Thickness of the E3D holder cover plate
 
-//E3DBasePlate();
-//E3DmountBottom();
+E3DBasePlate();
+E3DmountBottom();
 E3DmountTop();
-//E3DFanDuct();
-//E3D3DTouchMount();
-//E3D3DTouch();
+E3DFanDuct();
+E3D3DTouchMount();
+E3D3DTouch();
 
 // ============================================================================================
 // Module that draws the base plate which holds the bearing housings and the E3D extruder
@@ -337,14 +337,14 @@ module E3DHead(){
 // ============================================================================================
 // Module 
 // ============================================================================================
-module E3DSensor(diam = 11){
+module E3DSensor(diam = 11.5){
   // Center bore
   translate([0,0,-tol/2]){
     cylinder(d=diam,h=E3Dholder_t+tol, center = false);
   }
-  //cutout = 10;
   rotate([90,0,0]){
     translate([0,E3Dholder_t/2,0]){
+      translate([diam/2,0,0]) cube([diam, E3Dholder_t+tol,t_plate],center = true);
       cylinder(d=m3,h=diam/2+5.2+2+tol, center = false);
       cylinder(d=4.8,h=diam/2+5.5+tol, center = false);
     }
@@ -475,8 +475,8 @@ module E3D3DTouchMount(){
 //    }
 //  }
   rotate([0,90,90]){
-    translate([-38.5,-36,-12]){
-      import("E3DMount_HCEstyle_TouchHolder.stl", convexity=3);
+    translate([-38.5,-38,-12.7]){
+      import("E3DMount_HCEstyle_TouchHolder_AM8_v02.stl", convexity=3);
     }
   }
 }
