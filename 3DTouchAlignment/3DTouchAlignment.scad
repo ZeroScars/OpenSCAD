@@ -6,7 +6,7 @@ $fn = $preview ? 90 : 360;
 x_size = 60; // mm
 y_size = 7;  // mm
 z_size = 5;  // mm
-tol = 0.1;
+tol = 0.2;
 
 sensor_offset = 8.3; // mm
 
